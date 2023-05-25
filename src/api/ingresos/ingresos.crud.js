@@ -3,47 +3,44 @@ const router = express.Router();
 const Ingreso = require('../models/ingresos.model');
 
 // Creando un ingreso
-router.post('/ingresos/agregarIngreso', (req, res)=>{
+router.post('/agregarIngreso',  async (req, res)=>{
   const ingreso = new Ingreso(req.body);
-  ingreso
-    .save()
-    .then((data) => res.json(data))
-    .catch((error) => res.json({ message: error }));
+  const data = await ingreso.save()
+  try {res.json(data)} 
+  catch (error) {res.json({ message: error })}
+
 });
 
 //Obteniendo todos los ingresos
-router.get('/ingresos', (req, res)=>{  
-  Ingreso
-   .find()
-   .then((data) => res.json(data))
-   .catch((error) => res.json({ message: error }));
+router.get('/ingresos/todos', async (req, res)=>{ 
+   const data = await Ingreso.find()
+   try {res.json(data)} 
+   catch (error) {res.json({ message: error })}
+   
 });
 
 //Obteniendo un ingreso por su ID
-router.post('/ingresos/edit', (req, res)=>{
+router.post('/ingresos/edit', async (req, res)=>{
   const _id = (req.body.id);  
-   Ingreso
-   .findById(_id)
-   .then((data) => res.json(data))
-   .catch((error) => res.json({ message: error }));
+   const data = await Ingreso.findById(_id);
+   try {res.json(data)} 
+   catch (error) {res.json({ message: error })}
 });
 
   //Actualizando un ingreso por su ID
- router.post('/ingresos/editIngreso', (req, res)=>{
+ router.post('/ingresos/editIngreso', async (req, res)=>{
   const { id, fecha, concepto, valor,  tipo } = req.body;
-   Ingreso
-    .updateOne({ _id: id }, { $set: { fecha, concepto, tipo, valor } })
-    .then((data) => res.json(data))
-    .catch((error) => res.json({ message: error }));
+   const data = await Ingreso.updateOne({ _id: id }, { $set: { fecha, concepto, tipo, valor } })
+   try {res.json(data)}
+   catch (error) {res.json({ message: error })}
 });
 
  //Eliminando un ingreso
- router.post('/ingresos/delIngreso', (req, res)=>{
+ router.post('/ingresos/delIngreso', async (req, res)=>{
   const { id } = req.body;
-   Ingreso
-    .deleteOne({ _id: id })
-    .then((data) => res.json(data))
-    .catch((error) => res.json({ message: error }));
+   const data = await Ingreso.deleteOne({ _id: id })
+   try {res.json(data)} 
+   catch (error) {res.json({ message: error })}
  });
 
 
