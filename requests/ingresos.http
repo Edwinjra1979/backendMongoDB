@@ -1,0 +1,47 @@
+//CREANDO UN INGRESO
+###
+POST http://localhost:4000/api/ingresos
+content-Type: application/json
+
+{
+    "fecha": "15-2-2023",
+    "concepto": "CodeSapces 2",
+    "tipo": "Ingreso",
+    "valor": 600900
+}
+
+//OBTENIENDO TODOS LOS INGRESOS
+###
+GET   http://localhost:4000/api/ingresos
+
+
+
+//OBTENIENDO UN INGRESO POR SU ID
+###
+GET http://localhost:4000/api/ingresos/64697d0ab08fcb35a875c000
+
+
+
+//ACTUALIZANDO UN INGRESO POR SU ID
+###
+PUT http://localhost:4000/api/ingresos/64630d5a017fd73be3e50627
+content-Type: application/json
+
+{
+    "fecha": "25-12-2023",
+    "concepto": "Utilidades",
+    "movimiento": "Ingreso",
+    "valor": 700000
+}
+
+
+//ELIMINANDO UN INGRESO POR SU ID
+###
+DELETE http://localhost:4000/api/ingresos/64698e4e6bb3be44aabddd6c
+
+//CONSULTAS AVANZADAS
+//CONSULTA CON UN FILTRO
+
+//Agrupa por el Attr movimiento => el total de los ingresos
+###
+POST http://localhost:4000/api/ingresos/ingresoTotal
